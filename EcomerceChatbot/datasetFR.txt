@@ -1,7 +1,7 @@
 salutations		Bonjour, comment allez-vous ? Bonjour, comment ça va ? Bonjour, bonsoir, bonsoir, bonjour. 
 demande-de-prix		Quel est le coût ? Quel est le prix ? Quel est le prix ? Combien coûte le prix ? Combien cela coûte-t-il ? prix coût argent combien. combien ?
 demande-categorie	Je choisie la catégorie vetement!
-mon-choix	T-Shirt!
+mon-choix	je choisi T-Shirt!
 ma-taille	taille M.
 ma-couleur	la couleur jaune .
 remerciement	Merci !
