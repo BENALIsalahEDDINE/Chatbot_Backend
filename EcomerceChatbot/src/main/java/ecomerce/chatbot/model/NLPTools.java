@@ -9,8 +9,14 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.CriteriaDefinition;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import ecomerce.chatbot.repository.MessageRepository;
 import opennlp.tools.doccat.BagOfWordsFeatureGenerator;
 import opennlp.tools.doccat.DoccatFactory;
 import opennlp.tools.doccat.DoccatModel;
@@ -37,6 +43,31 @@ import opennlp.tools.util.model.ModelUtil;
 @Service
 public class NLPTools {
 
+	 @Autowired
+	 private MessageRepository messageRepository ;
+	public void initializeBD() {
+		messageRepository.save(new Message("salutations","Bonjour,Comment je peux vous aider ?")) ;
+		messageRepository.save(new Message("demande-de-prix","prix est $300")) ;
+		messageRepository.save(new Message("demande-categorie","Parfait ! Votre demande concerne : pantalon,T-Shirt....?")) ;
+		messageRepository.save(new Message("mon-choix","Parfait , quelle taille ?")) ;
+		messageRepository.save(new Message("ma-taille","Quelle est votre couleur pr�f�r�e?")) ;
+		messageRepository.save(new Message("ma-couleur","Pour mieux comprendre votre demande et trouver le bon produit, je vous conseil de consulter la page http://www.Shop4Yourself.com/T-shirt/Taille-M , votre facture sera entre 150Dhs ET 250Dhs selon votre chox!")) ;
+	
+    System.out.println(messageRepository.findAll()) ;
+	}
+	
+	public String getMessagebyCategory(String category) {
+		
+		
+		return  messageRepository.findById(category).get().getMessage() ;				
+	}
+	
+	
+	
+	
+	
+	
+	
 	public String detectCategory(DoccatModel model, String[] finalTokens) throws IOException {
 
 		// Initialize document categorizer tool
@@ -50,6 +81,18 @@ public class NLPTools {
 		return category;
 
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public DoccatModel trainCategorizerModel() throws FileNotFoundException, IOException {
 		// faq-categorizer.txt is a custom training data with categories as per our chat
 		// requirements.

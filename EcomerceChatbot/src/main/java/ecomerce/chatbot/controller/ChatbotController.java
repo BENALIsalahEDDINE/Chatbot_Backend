@@ -54,24 +54,7 @@ public class ChatbotController {
 	@ResponseBody
 	@JsonIgnoreProperties(ignoreUnknown = true)
 	public TextMessage chat(@RequestBody TextMessage textMessage) throws FileNotFoundException, IOException {
-		Map<String, String> questionAnswer = new HashMap<>();
-		/*
-		 * Define answers for each given category.
-		 */
-		
-			questionAnswer.put("salutations", "Bonjour,Comment je peux vous aider ?");
-			//questionAnswer.put("product-inquiry",
-				//	"Product is a TipTop mobile phone. It is a smart phone with latest features like touch screen, blutooth etc.");
-			questionAnswer.put("demande-de-prix", "prix est $300");
-			//questionAnswer.put("conversation-continue", "What else can I help you with?");
-			//questionAnswer.put("conversation-complete", "Nice chatting with you. Bbye.");
-			
-			questionAnswer.put("demande-categorie", "Parfait ! Votre demande concerne : pantalon,T-Shirt....?");
-			questionAnswer.put("mon-choix", "Parfait , quelle taille ?");
-			questionAnswer.put("ma-taille", "Quelle est votre couleur pr�f�r�e?");
-			questionAnswer.put("ma-couleur", "Pour mieux comprendre votre demande et trouver le bon produit, je vous conseil de consulter la page http://www.Shop4Yourself.com/T-shirt/Taille-M , votre facture sera entre 150Dhs ET 250Dhs selon votre chox!");
-			
-			questionAnswer.put("remerciement", "Nous vous souhaitons de bons achats ");
+		//nlpTools.initializeBD() ;
 		
 		// Train categorizer model to the training data we created.
 	    DoccatModel model = nlpTools.trainCategorizerModel();
@@ -92,7 +75,7 @@ public class ChatbotController {
 			String category = nlpTools.detectCategory(model, lemmas);
 
 			// Get predefined answer from given category & add to answer.
-			answer = answer + " " + questionAnswer.get(category);
+			answer = answer + " " + nlpTools.getMessagebyCategory(category);
 		}
 		
 		
